@@ -17,6 +17,10 @@ const argv = yargs
   .argv;
 
 geocode.geocodeAddress(argv.address, (errorMessage, results) => {
+  const celciusDegree = (fahrenhetDegree) => {
+    return (fahrenhetDegree - 32) * 5 / 9;
+  };
+
   if (errorMessage) {
     console.log(errorMessage);
   } else {
@@ -25,7 +29,7 @@ geocode.geocodeAddress(argv.address, (errorMessage, results) => {
       if (errorMessage) {
         console.log(errorMessage);
       } else {
-        console.log(`It's currently ${weatherResults.temperature}. It feels like ${weatherResults.apparentTemperature}.`);
+        console.log(`It's currently ${celciusDegree(weatherResults.temperature).toFixed(1)}°C. It feels like ${celciusDegree(weatherResults.apparentTemperature).toFixed(1)}°C.`);
       }
     });
   }
